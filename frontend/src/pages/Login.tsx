@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../api';
-import { Wallet } from 'lucide-react';
+
 
 export function Login() {
   const [email, setEmail] = useState('');
@@ -34,9 +34,7 @@ export function Login() {
 
       <div className="w-full max-w-md relative">
         <Link to="/" className="flex items-center justify-center gap-2 mb-10">
-          <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center shadow-lg shadow-cyan-500/20">
-            <Wallet className="w-6 h-6 text-slate-900" strokeWidth={2.5} />
-          </div>
+          <img src="/Lykos.png" alt="Lykos" className="w-12 h-12 rounded-xl shadow-lg shadow-cyan-500/20" />
           <span className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Lykos Wallet</span>
         </Link>
 
@@ -51,6 +49,7 @@ export function Login() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
                 className="w-full px-4 py-3 rounded-xl bg-[var(--bg-input)] border border-[var(--border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--border-focus)] focus:ring-2 focus:ring-cyan-500/20 transition"
                 placeholder="you@example.com"
                 required
@@ -62,6 +61,7 @@ export function Login() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
                 className="w-full px-4 py-3 rounded-xl bg-[var(--bg-input)] border border-[var(--border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:border-[var(--border-focus)] focus:ring-2 focus:ring-cyan-500/20 transition"
                 required
               />
