@@ -63,6 +63,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-8">
         {children}
       </main>
+
+      <footer className="border-t border-[var(--border)] py-4 text-center text-sm text-[var(--text-muted)]">
+        © Lykos 2026. All rights reserved.
+      </footer>
     </div>
   );
 }
