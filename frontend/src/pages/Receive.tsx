@@ -30,7 +30,8 @@ export function Receive() {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="min-h-[80vh] flex items-center justify-center">
+    <div className="max-w-md w-full bg-[var(--bg-card)] rounded-2xl p-8 border border-[var(--border)] text-center">
       <h1 className="text-xl font-semibold mb-2">Receive</h1>
       <p className="text-[var(--text-secondary)] text-sm mb-6">Scan or share your address to receive crypto</p>
 
@@ -82,6 +83,7 @@ export function Receive() {
           No wallets yet. <Link to="/wallet/create" className="text-cyan-400 hover:text-cyan-300 font-medium">Create one</Link> first.
         </p>
       )}
+    </div>
     </div>
   );
 }

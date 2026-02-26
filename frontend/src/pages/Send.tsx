@@ -116,7 +116,8 @@ export function Send() {
 
   if (txHash) {
     return (
-      <div className="max-w-md mx-auto">
+      <div className="min-h-[80vh] flex items-center justify-center">
+      <div className="max-w-md w-full mx-auto">
         <div className="bg-[var(--bg-card)] rounded-2xl p-8 border border-[var(--border)] text-center">
           <div className="w-16 h-16 rounded-full bg-[var(--success)]/20 flex items-center justify-center mx-auto mb-6">
             <span className="text-3xl text-[var(--success)]">✓</span>
@@ -141,11 +142,13 @@ export function Send() {
           </button>
         </div>
       </div>
+      </div>
     );
   }
 
   return (
-    <div className="max-w-md">
+    <div className="min-h-[80vh] flex items-center justify-center">
+    <div className="max-w-md w-full bg-[var(--bg-card)] rounded-2xl p-8 border border-[var(--border)] text-center">
       <h1 className="text-xl font-semibold mb-2">Send {tokenAddress ? 'Token' : chain?.symbol || 'ETH'}</h1>
       <p className="text-[var(--text-secondary)] text-sm mb-6">Transfer to any EVM address</p>
 
@@ -223,6 +226,7 @@ export function Send() {
           {loading ? 'Sending...' : 'Send'}
         </button>
       </form>
+    </div>
     </div>
   );
 }
