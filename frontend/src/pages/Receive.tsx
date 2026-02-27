@@ -24,10 +24,38 @@ export function Receive() {
 
   const copyAddress = () => {
     if (!selectedWallet) return;
-    navigator.clipboard.writeText(selectedWallet.address);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    const text = selectedWallet.address;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }).catch(() => fallbackCopyTextToClipboard(text));
+    } else {
+      fallbackCopyTextToClipboard(text);
+    }
   };
+
+  function fallbackCopyTextToClipboard(text: string) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '0';
+    textArea.style.top = '0';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch (err) {
+      // Optionally show error
+    }
+    document.body.removeChild(textArea);
+  }
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center">
