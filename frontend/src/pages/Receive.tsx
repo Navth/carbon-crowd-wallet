@@ -22,40 +22,25 @@ export function Receive() {
     });
   }, []);
 
-  const copyAddress = () => {
+  const copyAddress = async () => {
     if (!selectedWallet) return;
     const text = selectedWallet.address;
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }).catch(() => fallbackCopyTextToClipboard(text));
-    } else {
-      fallbackCopyTextToClipboard(text);
-    }
-  };
-
-  function fallbackCopyTextToClipboard(text: string) {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '0';
-    textArea.style.top = '0';
-    textArea.style.opacity = '0';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
     try {
-      const successful = document.execCommand('copy');
-      if (successful) {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }
-    } catch (err) {
-      // Optionally show error
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // Fallback for non-HTTPS / older browsers
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
     }
-    document.body.removeChild(textArea);
-  }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center">
