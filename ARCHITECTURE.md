@@ -2,7 +2,7 @@
 
 ## System Architecture
 
-The Lykos Wallet Backend is built as a microservices architecture with the following components:
+The Carbon Crowd Wallet Backend is built as a microservices architecture with the following components:
 
 ```
 ┌─────────────────┐

@@ -1,4 +1,4 @@
-# Lykos Wallet — Full Crypto Wallet
+# Carbon Crowd Wallet — Full Crypto Wallet
 
 A working, deployable crypto wallet with Ethereum and Sepolia support. Create wallets, send/receive ETH, import via mnemonic or private key.
 

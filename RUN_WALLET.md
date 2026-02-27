@@ -1,4 +1,4 @@
-# Lykos Wallet – Run & Deploy
+# Carbon Crowd Wallet – Run & Deploy
 
 Full crypto wallet: create/import HD wallets, view balance, send ETH on Ethereum and Sepolia.
 

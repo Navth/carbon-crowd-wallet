@@ -1,6 +1,6 @@
-# Lykos Wallet — AWS Production Deployment
+# Carbon Crowd Wallet — AWS Production Deployment
 
-Launch checklist and step-by-step AWS setup for Lykos Wallet.
+Launch checklist and step-by-step AWS setup for Carbon Crowd Wallet.
 
 ---
 
