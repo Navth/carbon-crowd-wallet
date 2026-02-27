@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { useAuth } from './context/AuthContext';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
@@ -21,10 +22,9 @@ function isTokenValid(token: string | null): boolean {
 }
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const token = localStorage.getItem('token');
+  const { token, loading } = useAuth();
+  if (loading) return null;
   if (!isTokenValid(token)) {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
     return <Navigate to="/login" replace />;
   }
   return <Layout>{children}</Layout>;
