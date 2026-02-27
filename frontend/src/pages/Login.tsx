@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Wallet } from 'lucide-react';
 
 
 export function Login() {
@@ -33,8 +34,8 @@ export function Login() {
 
       <div className="w-full max-w-md relative">
         <Link to="/" className="flex items-center justify-center gap-2 mb-10">
-          <img src="/Lykos.png" alt="Lykos Wallet" className="w-12 h-12 rounded-xl shadow-lg shadow-cyan-500/20" />
-          <span className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Lykos Wallet</span>
+            <Wallet className="w-12 h-12 text-cyan-500 shadow-lg shadow-cyan-500/20 rounded-xl" aria-label="Wallet Icon" />
+          <span className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">Carbon Crowd Wallet</span>
         </Link>
 
         <div className="bg-[var(--bg-card)]/80 backdrop-blur-xl rounded-2xl p-8 border border-[var(--border)] shadow-xl">
