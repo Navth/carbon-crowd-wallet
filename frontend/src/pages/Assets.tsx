@@ -50,11 +50,11 @@ export function Assets() {
   const [tab, setTab] = useState<'tokens' | 'nfts'>('tokens');
 
   useEffect(() => {
-    wallets.list().then((r) => {
+    wallets.list().then((r: { data: { wallets: WalletData[] } }) => {
       setWalletsList(r.data.wallets);
       if (r.data.wallets.length > 0) setSelectedWallet(r.data.wallets[0]);
     });
-    chains.list().then((r) => setChainList(r.data.chains));
+    chains.list().then((r: { data: { chains: Chain[] } }) => setChainList(r.data.chains));
   }, []);
 
   useEffect(() => {
@@ -62,11 +62,11 @@ export function Assets() {
     setNftsLoading(true);
     setNftError(null);
     nfts.all(selectedChain, selectedWallet.address, 100)
-      .then((r) => {
+      .then((r: { data: { nfts: NFT[] } }) => {
         setNftList(r.data.nfts || []);
         setNftError(null);
       })
-      .catch((err) => {
+      .catch((err: { response?: { data?: { error?: string } } }) => {
         setNftList([]);
         setNftError(err.response?.data?.error || 'Failed to load NFTs');
       })
@@ -78,9 +78,9 @@ export function Assets() {
     setTokensLoading(true);
     const tokenAddrs = COMMON_TOKENS[selectedChain]?.map((t) => t.address) || [];
     Promise.all([
-      rpc.balance(selectedChain, selectedWallet.address).then((r) => BigInt(r.data.balance)).catch(() => null),
+      rpc.balance(selectedChain, selectedWallet.address).then((r: { data: { balance: string } }) => BigInt(r.data.balance)).catch(() => null),
       tokenAddrs.length > 0
-        ? tokens.balances(selectedChain, selectedWallet.address, tokenAddrs).then((r) =>
+        ? tokens.balances(selectedChain, selectedWallet.address, tokenAddrs).then((r: { data: { tokens: TokenBalance[] } }) =>
             r.data.tokens.filter((t: TokenBalance) => t.balance !== '0')
           ).catch(() => [])
         : Promise.resolve([]),
@@ -95,7 +95,7 @@ export function Assets() {
     setNftsLoading(true);
     setNftError(null);
     nfts.owned(selectedChain, selectedWallet.address, nftContract.trim(), 100)
-      .then((r) => {
+      .then((r: { data: { nfts: NFT[] } }) => {
         setNftList(r.data.nfts || []);
         setNftError(null);
       })

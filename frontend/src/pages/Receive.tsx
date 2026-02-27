@@ -16,7 +16,7 @@ export function Receive() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    wallets.list().then((res) => {
+    wallets.list().then((res: { data: { wallets: WalletData[] } }) => {
       setWalletsList(res.data.wallets);
       if (res.data.wallets.length > 0) setSelectedWallet(res.data.wallets[0]);
     });

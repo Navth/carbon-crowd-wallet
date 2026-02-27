@@ -52,11 +52,11 @@ export function Dashboard() {
     setBalanceLoading(true);
     setBalanceError(null);
     rpc.balance(selectedChain, selectedWallet.address)
-      .then((res) => {
+      .then((res: { data: { balance: string } }) => {
         setBalance(BigInt(res.data.balance));
         setBalanceError(null);
       })
-      .catch((err) => {
+      .catch((err: { response?: { data?: { error?: string } } }) => {
         setBalance(null);
         setBalanceError(err.response?.data?.error || 'Failed to load balance');
       })

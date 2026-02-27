@@ -35,11 +35,11 @@ export function Send() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    wallets.list().then((res) => {
+    wallets.list().then((res: { data: { wallets: WalletData[] } }) => {
       setWalletsList(res.data.wallets);
       if (res.data.wallets.length > 0) setSelectedWallet(res.data.wallets[0]);
     });
-    chains.list().then((res) => setChainList(res.data.chains));
+    chains.list().then((res: { data: { chains: Chain[] } }) => setChainList(res.data.chains));
   }, []);
 
   useEffect(() => {
