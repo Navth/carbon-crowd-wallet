@@ -8,6 +8,9 @@ if (isProd) {
   if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'dev-secret-change-in-production') {
     throw new Error('JWT_SECRET must be set to a secure value in production');
   }
+  if (!process.env.CORS_ORIGIN?.trim()) {
+    throw new Error('CORS_ORIGIN is required in production (e.g. https://wallet.yourdomain.com)');
+  }
 }
 
 export const config = {

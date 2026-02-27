@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
 import helmet from '@fastify/helmet';
+import rateLimit from '@fastify/rate-limit';
 import { config } from './config.js';
 import { authRoutes } from './routes/auth.js';
 import { walletRoutes } from './routes/wallets.js';
@@ -20,6 +21,10 @@ declare module 'fastify' {
 const fastify = Fastify({ logger: true });
 
 fastify.register(helmet, { contentSecurityPolicy: false });
+fastify.register(rateLimit, {
+  max: config.isProd ? 100 : 1000,
+  timeWindow: '1 minute',
+});
 fastify.register(cors, {
   origin: config.corsOrigins,
   credentials: true,
@@ -32,6 +37,17 @@ fastify.decorate('authenticate', async function (request: any, reply: any) {
   } catch (err) {
     reply.status(401).send({ error: 'Unauthorized' });
   }
+});
+
+// Global error handler: log and return 500 with message so we can debug
+fastify.setErrorHandler((err, request, reply) => {
+  fastify.log.error({ err, url: request.url, method: request.method });
+  const message = err?.message || 'Internal Server Error';
+  const statusCode = (err as { statusCode?: number })?.statusCode ?? 500;
+  return reply.status(statusCode).send({
+    error: message,
+    ...(config.nodeEnv === 'development' && { stack: (err as Error).stack }),
+  });
 });
 
 fastify.register(authRoutes);

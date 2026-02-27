@@ -38,7 +38,7 @@ services:
       NODE_ENV: production
       DATABASE_URL: postgresql://lykos:${POSTGRES_PASSWORD}@postgres:5432/lykos_prod
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET required}
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost}
+      CORS_ORIGIN: ${CORS_ORIGIN:?CORS_ORIGIN required in production}
       ETHEREUM_RPC_URL: ${ETHEREUM_RPC_URL:-}
       SEPOLIA_RPC_URL: ${SEPOLIA_RPC_URL:-}
       OPTIMISM_RPC_URL: ${OPTIMISM_RPC_URL:-}
