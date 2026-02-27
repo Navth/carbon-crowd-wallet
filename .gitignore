@@ -42,3 +42,6 @@ prisma/migrations/
 # Docker
 docker-compose.override.yml
 cat  .env  'EOF'.txt
+
+# Cloned site repo (separate git repo on server)
+site/

@@ -56,12 +56,23 @@ services:
         VITE_API_URL: /api
     depends_on:
       - backend
+      - site
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - certbot_webroot:/var/www/certbot:ro
+
+  # Main site (lykoslabs.xyz) — Next.js
+  site:
+    build:
+      context: ./site
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+    expose:
+      - "3001"
 
   # Certbot for SSL certificate renewal
   certbot:
