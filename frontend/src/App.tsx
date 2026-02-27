@@ -9,7 +9,6 @@ import { ImportWallet } from './pages/ImportWallet';
 import { Send } from './pages/Send';
 import { Receive } from './pages/Receive';
 import { Assets } from './pages/Assets';
-import { useAuth } from './context/AuthContext';
 
 function isTokenValid(token: string | null): boolean {
   if (!token) return false;
@@ -22,8 +21,7 @@ function isTokenValid(token: string | null): boolean {
 }
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { token, loading } = useAuth();
-  if (loading) return null;
+  const token = localStorage.getItem('token');
   if (!isTokenValid(token)) {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
